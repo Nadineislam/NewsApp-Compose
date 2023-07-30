@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewsAppCompose</string>
+    <string name="title_activity_new_details">NewDetails</string>
+</resources>
