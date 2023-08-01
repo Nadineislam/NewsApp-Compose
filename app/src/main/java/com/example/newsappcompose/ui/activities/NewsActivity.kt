@@ -1,4 +1,4 @@
-package com.example.newsappcompose
+package com.example.newsappcompose.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -108,7 +108,6 @@ fun NewsList(articles: List<Article>?) {
 
 @Composable
 fun NewsArticle(article: Article) {
-
 
     Row(
         modifier = Modifier

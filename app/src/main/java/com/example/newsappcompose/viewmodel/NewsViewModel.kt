@@ -16,13 +16,13 @@ class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
 
     init {
 
-        getNews("us")
+        getNews()
     }
 
 
-    private fun getNews(countryCode: String) = viewModelScope.launch {
+    private fun getNews() = viewModelScope.launch {
         news.postValue(Resource.Loading())
-        val response = newsRepository.getNews(countryCode)
+        val response = newsRepository.getNews("us")
         news.postValue(handleNews(response))
         Log.e("Hi", response.toString())
 
