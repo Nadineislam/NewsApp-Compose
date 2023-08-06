@@ -1,8 +1,10 @@
 package com.example.newsappcompose.repository
 
-import com.example.newsappcompose.api.RetrofitInstance
+import com.example.newsappcompose.api.NewsApi
 
-class NewsRepository {
+import javax.inject.Inject
+
+class NewsRepository @Inject constructor(private val newsApi: NewsApi) {
     suspend fun getNews(countryCode: String) =
-        RetrofitInstance.api.getNews(countryCode)
+        newsApi.getNews(countryCode)
 }

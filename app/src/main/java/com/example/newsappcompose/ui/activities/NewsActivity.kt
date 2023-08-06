@@ -25,17 +25,14 @@ import androidx.lifecycle.Observer
 import coil.compose.rememberImagePainter
 import com.example.newsappcompose.model.Article
 import com.example.newsappcompose.model.NewsResponse
-import com.example.newsappcompose.repository.NewsRepository
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
 import com.example.newsappcompose.utils.Resource
 import com.example.newsappcompose.viewmodel.NewsViewModel
-import com.example.newsappcompose.viewmodel.NewsViewModelProviderFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val viewModel: NewsViewModel by viewModels {
-        NewsViewModelProviderFactory(NewsRepository())
-    }
+    private val viewModel: NewsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,14 +88,15 @@ fun NewsList(articles: List<Article>?) {
         contentPadding = PaddingValues(15.dp),
     ) {
         items(articles ?: emptyList()) { article ->
-            Card(modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 5.dp)
-                .clickable {
-                    val intent = Intent(context, NewDetails::class.java)
-                    intent.putExtra("article", article)
-                    context.startActivity(intent)
-                }, elevation = 3.dp
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 5.dp)
+                    .clickable {
+                        val intent = Intent(context, NewDetails::class.java)
+                        intent.putExtra("article", article)
+                        context.startActivity(intent)
+                    }, elevation = 3.dp
             ) {
                 NewsArticle(article)
             }

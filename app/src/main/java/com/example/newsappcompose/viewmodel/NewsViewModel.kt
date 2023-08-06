@@ -8,10 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsappcompose.model.NewsResponse
 import com.example.newsappcompose.repository.NewsRepository
 import com.example.newsappcompose.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
+@HiltViewModel
+class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : ViewModel() {
     private val news: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     init {

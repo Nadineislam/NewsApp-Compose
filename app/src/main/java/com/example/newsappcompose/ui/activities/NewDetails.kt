@@ -1,5 +1,6 @@
 package com.example.newsappcompose.ui.activities
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,7 @@ import coil.compose.rememberImagePainter
 import com.example.newsappcompose.model.Article
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
 
+
 class NewDetails : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +31,19 @@ class NewDetails : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val article = intent.getParcelableExtra<Article>("article")
+                    val article = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableExtra("article", Article::class.java)
+                    } else {
+                        intent.getParcelableExtra("article")
+                    }
+                    //val article = intent.getParcelableExtra<Article>("article")
                     NewsArticleDetail(article = article as Article)
                 }
             }
         }
     }
 }
+
 @Composable
 fun NewsArticleDetail(article: Article) {
     Column(
