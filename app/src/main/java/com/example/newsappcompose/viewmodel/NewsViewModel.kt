@@ -18,10 +18,8 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
     private val news: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
     init {
-
         getNews()
     }
-
 
     private fun getNews() = viewModelScope.launch {
         news.postValue(Resource.Loading())

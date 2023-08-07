@@ -12,10 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,7 +50,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NewsApp(viewModel: NewsViewModel) {
     val news = remember { mutableStateOf<Resource<NewsResponse>>(Resource.Loading()) }
-
     when (val resource = news.value) {
         is Resource.Success -> {
             val articles = resource.data?.articles
