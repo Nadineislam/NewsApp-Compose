@@ -1,5 +1,6 @@
-package com.example.newsappcompose.api
+package com.example.newsappcompose.di
 
+import com.example.newsappcompose.api.NewsApi
 import com.example.newsappcompose.repository.NewsRepository
 import com.example.newsappcompose.utils.Constants.Constants.Companion.BASE_URL
 import dagger.Module
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
+object AppModule {
     @Singleton
     @Provides
     fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()
