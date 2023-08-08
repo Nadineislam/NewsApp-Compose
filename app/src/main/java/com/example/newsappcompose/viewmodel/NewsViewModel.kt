@@ -1,32 +1,32 @@
 package com.example.newsappcompose.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsappcompose.model.NewsResponse
 import com.example.newsappcompose.repository.NewsRepository
 import com.example.newsappcompose.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : ViewModel() {
-    private val news: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
+    private val _news: MutableStateFlow<Resource<NewsResponse>> =
+        MutableStateFlow(Resource.Loading())
+    val news: StateFlow<Resource<NewsResponse>> = _news
 
     init {
         getNews()
     }
 
     private fun getNews() = viewModelScope.launch {
-        news.postValue(Resource.Loading())
-        val response = newsRepository.getNews("us")
-        news.postValue(handleNews(response))
-        Log.e("Hi", response.toString())
+        _news.value = Resource.Loading()
+        newsRepository.getNews("us").collect { response ->
+            _news.value = handleNews(response)
 
+        }
     }
 
     private fun handleNews(response: Response<NewsResponse>): Resource<NewsResponse> {
@@ -37,7 +37,4 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
         }
         return Resource.Error(response.message())
     }
-
-    fun observeNewsLiveData(): LiveData<Resource<NewsResponse>> = news
-
 }

@@ -18,10 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Observer
 import coil.compose.rememberImagePainter
 import com.example.newsappcompose.model.Article
-import com.example.newsappcompose.model.NewsResponse
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
 import com.example.newsappcompose.utils.Resource
 import com.example.newsappcompose.viewmodel.NewsViewModel
@@ -49,7 +47,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NewsApp(viewModel: NewsViewModel) {
-    val news = remember { mutableStateOf<Resource<NewsResponse>>(Resource.Loading()) }
+    val news = viewModel.news.collectAsState(initial = Resource.Loading())
+
     when (val resource = news.value) {
         is Resource.Success -> {
             val articles = resource.data?.articles
@@ -65,16 +64,10 @@ fun NewsApp(viewModel: NewsViewModel) {
             }
         }
     }
-    DisposableEffect(viewModel) {
-        val observer = Observer<Resource<NewsResponse>> { resource ->
-            news.value = resource
-        }
-        viewModel.observeNewsLiveData().observeForever(observer)
-        onDispose {
-            viewModel.observeNewsLiveData().removeObserver(observer)
-        }
-    }
+
+
 }
+
 
 @Composable
 fun NewsList(articles: List<Article>?) {
