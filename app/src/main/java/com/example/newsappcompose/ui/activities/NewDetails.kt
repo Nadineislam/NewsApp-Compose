@@ -6,22 +6,22 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.newsappcompose.model.Article
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
 
 
 class NewDetails : ComponentActivity() {
+    @ExperimentalCoilApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,7 +36,6 @@ class NewDetails : ComponentActivity() {
                     } else {
                         intent.getParcelableExtra("article")
                     }
-                    //val article = intent.getParcelableExtra<Article>("article")
                     NewsArticleDetail(article = article as Article)
                 }
             }
@@ -44,21 +43,29 @@ class NewDetails : ComponentActivity() {
     }
 }
 
+@ExperimentalCoilApi
+@Composable
+fun CoilImageDetail(article: Article) {
+    Box(
+        modifier = Modifier
+            .height(200.dp)
+            .fillMaxWidth()
+    ) {
+        val painter = rememberImagePainter(data = article.urlToImage)
+        Image(painter = painter, contentDescription = "news image")
+    }
+}
+
+@ExperimentalCoilApi
 @Composable
 fun NewsArticleDetail(article: Article) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Image(
-            painter = rememberImagePainter(article.urlToImage),
-            contentDescription = "News Image",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .clip(RoundedCornerShape(8.dp))
-        )
+        CoilImageDetail(article = article)
 
         Spacer(modifier = Modifier.height(16.dp))
 
