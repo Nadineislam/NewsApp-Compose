@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.example.newsappcompose.model.Article
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
 
@@ -51,7 +51,7 @@ fun CoilImageDetail(article: Article) {
             .height(200.dp)
             .fillMaxWidth()
     ) {
-        val painter = rememberImagePainter(data = article.urlToImage)
+        val painter = rememberAsyncImagePainter(model = article.urlToImage)
         Image(painter = painter, contentDescription = "news image")
     }
 }

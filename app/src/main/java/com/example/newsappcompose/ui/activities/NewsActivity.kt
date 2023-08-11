@@ -10,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,7 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.example.newsappcompose.model.Article
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
@@ -87,7 +89,7 @@ fun NewsList(articles: List<Article>?) {
                         val intent = Intent(context, NewDetails::class.java)
                         intent.putExtra("article", article)
                         context.startActivity(intent)
-                    }, elevation = 3.dp
+                    }, elevation = 3.dp, shape = RoundedCornerShape(20.dp)
             ) {
                 NewsArticle(article)
             }
@@ -103,12 +105,15 @@ fun CoilImage(article: Article) {
             .height(140.dp)
             .width(140.dp)
     ) {
-        val painter = rememberImagePainter(data = article.urlToImage, builder = {
-            transformations(
+        val painter = rememberAsyncImagePainter(
+            ImageRequest.Builder(LocalContext.current).data(data = article.urlToImage)
+                .apply(block = fun ImageRequest.Builder.() {
+                    transformations(
 
-                CircleCropTransformation()
-            )
-        })
+                        CircleCropTransformation()
+                    )
+                }).build()
+        )
         Image(painter = painter, contentDescription = "news image")
     }
 }
