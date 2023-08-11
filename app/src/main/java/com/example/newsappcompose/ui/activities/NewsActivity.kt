@@ -10,15 +10,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import coil.transform.CircleCropTransformation
 import com.example.newsappcompose.model.Article
 import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
 import com.example.newsappcompose.utils.Resource
@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: NewsViewModel by viewModels()
 
+    @ExperimentalCoilApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,6 +46,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@coil.annotation.ExperimentalCoilApi
 @Composable
 fun NewsApp(viewModel: NewsViewModel) {
     val news = viewModel.news.collectAsState(initial = Resource.Loading())
@@ -68,7 +70,7 @@ fun NewsApp(viewModel: NewsViewModel) {
 
 }
 
-
+@coil.annotation.ExperimentalCoilApi
 @Composable
 fun NewsList(articles: List<Article>?) {
     val context = LocalContext.current
@@ -93,6 +95,24 @@ fun NewsList(articles: List<Article>?) {
     }
 }
 
+@ExperimentalCoilApi
+@Composable
+fun CoilImage(article: Article) {
+    Box(
+        modifier = Modifier
+            .height(110.dp)
+            .width(110.dp)
+    ) {
+        val painter = rememberImagePainter(data = article.urlToImage, builder = {
+            transformations(
+                CircleCropTransformation()
+            )
+        })
+        Image(painter = painter, contentDescription = "news image")
+    }
+}
+
+@coil.annotation.ExperimentalCoilApi
 @Composable
 fun NewsArticle(article: Article) {
 
@@ -101,14 +121,8 @@ fun NewsArticle(article: Article) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Image(
-            painter = rememberImagePainter(article.urlToImage),
-            contentDescription = "News Image",
-            modifier = Modifier
-                .width(100.dp)
-                .height(100.dp)
-                .clip(RoundedCornerShape(8.dp))
-        )
+
+        CoilImage(article = article)
 
         Column(
             modifier = Modifier
