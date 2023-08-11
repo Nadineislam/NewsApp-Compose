@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
 @coil.annotation.ExperimentalCoilApi
 @Composable
 fun NewsApp(viewModel: NewsViewModel) {
-    val news = viewModel.news.collectAsState(initial = Resource.Loading())
+    val news = viewModel.news.collectAsState()
 
     when (val resource = news.value) {
         is Resource.Success -> {
@@ -100,11 +100,12 @@ fun NewsList(articles: List<Article>?) {
 fun CoilImage(article: Article) {
     Box(
         modifier = Modifier
-            .height(110.dp)
-            .width(110.dp)
+            .height(140.dp)
+            .width(140.dp)
     ) {
         val painter = rememberImagePainter(data = article.urlToImage, builder = {
             transformations(
+
                 CircleCropTransformation()
             )
         })
@@ -119,14 +120,13 @@ fun NewsArticle(article: Article) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
 
         CoilImage(article = article)
 
         Column(
             modifier = Modifier
-                .padding(start = 16.dp)
         ) {
 
             Text(

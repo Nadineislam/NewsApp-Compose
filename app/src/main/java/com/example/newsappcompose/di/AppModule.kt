@@ -1,7 +1,5 @@
 package com.example.newsappcompose.di
-
 import com.example.newsappcompose.api.NewsApi
-import com.example.newsappcompose.repository.NewsRepository
 import com.example.newsappcompose.utils.Constants.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -42,8 +40,4 @@ object AppModule {
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): NewsApi = retrofit.create(NewsApi::class.java)
-
-    @Singleton
-    @Provides
-    fun providesRepository(newsApi: NewsApi) = NewsRepository(newsApi)
 }
