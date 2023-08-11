@@ -12,5 +12,5 @@ import javax.inject.Inject
 
 class NewsRepository @Inject constructor(private val newsApi: NewsApi) {
     fun getNews(countryCode: String) =
-        flow { emit(newsApi.getNews(countryCode)) }.flowOn(Dispatchers.IO)
+        flow { emit(newsApi.getNews(countryCode)) }
 }
