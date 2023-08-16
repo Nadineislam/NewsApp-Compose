@@ -1,8 +1,7 @@
-package com.example.newsappcompose.api
+package com.example.newsappcompose.data.api
 
-import com.example.newsappcompose.utils.Constants.Constants.Companion.API_KEY
-import com.example.newsappcompose.model.NewsResponse
-import kotlinx.coroutines.flow.Flow
+import com.example.newsappcompose.data.utils.Constants.Constants.Companion.API_KEY
+import com.example.newsappcompose.data.model.NewsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

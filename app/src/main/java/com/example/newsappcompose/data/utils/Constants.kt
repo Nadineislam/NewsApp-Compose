@@ -1,4 +1,4 @@
-package com.example.newsappcompose.utils
+package com.example.newsappcompose.data.utils
 
 class Constants {
     class Constants {

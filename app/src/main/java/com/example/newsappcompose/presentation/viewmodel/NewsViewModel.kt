@@ -1,10 +1,10 @@
-package com.example.newsappcompose.viewmodel
+package com.example.newsappcompose.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsappcompose.model.NewsResponse
-import com.example.newsappcompose.repository.NewsRepository
-import com.example.newsappcompose.utils.Resource
+import com.example.newsappcompose.data.model.NewsResponse
+import com.example.newsappcompose.data.repository.NewsRepository
+import com.example.newsappcompose.data.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.example.newsappcompose.ui.activities
+package com.example.newsappcompose.presentation.activities
 
 import android.os.Build
 import android.os.Bundle
@@ -16,8 +16,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
-import com.example.newsappcompose.model.Article
-import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
+import com.example.newsappcompose.data.model.Article
+import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
 
 
 class NewDetails : ComponentActivity() {

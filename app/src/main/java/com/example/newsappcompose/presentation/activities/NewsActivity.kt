@@ -1,4 +1,4 @@
-package com.example.newsappcompose.ui.activities
+package com.example.newsappcompose.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -21,10 +21,10 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import com.example.newsappcompose.model.Article
-import com.example.newsappcompose.ui.theme.NewsAppComposeTheme
-import com.example.newsappcompose.utils.Resource
-import com.example.newsappcompose.viewmodel.NewsViewModel
+import com.example.newsappcompose.data.model.Article
+import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
+import com.example.newsappcompose.data.utils.Resource
+import com.example.newsappcompose.presentation.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
