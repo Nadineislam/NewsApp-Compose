@@ -6,7 +6,7 @@ import com.example.newsappcompose.data.utils.Resource
 import retrofit2.Response
 import javax.inject.Inject
 
-class GetNewsUseCase @Inject constructor(private val newsRepository: NewsRepository) {
+class NewsUseCase @Inject constructor(private val newsRepository: NewsRepository) {
     suspend operator fun invoke(): Resource<NewsResponse> {
         val response = newsRepository.getNews("us")
         return handleNewsResponse(response)
