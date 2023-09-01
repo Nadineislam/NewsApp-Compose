@@ -2,7 +2,7 @@ package com.example.newsappcompose.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newsappcompose.domain.NewsUseCase
+import com.example.newsappcompose.domain.usecase.NewsUseCase
 import com.example.newsappcompose.data.model.NewsResponse
 import com.example.newsappcompose.data.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel

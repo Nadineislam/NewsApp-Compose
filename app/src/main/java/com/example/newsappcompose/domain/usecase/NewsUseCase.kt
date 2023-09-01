@@ -1,4 +1,4 @@
-package com.example.newsappcompose.domain
+package com.example.newsappcompose.domain.usecase
 
 import com.example.newsappcompose.data.model.NewsResponse
 import com.example.newsappcompose.data.repository.NewsRepository
