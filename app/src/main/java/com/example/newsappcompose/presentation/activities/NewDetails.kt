@@ -1,6 +1,5 @@
 package com.example.newsappcompose.presentation.activities
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import com.example.newsappcompose.data.model.Article
+import com.example.newsappcompose.getParcelable
 import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
 
 
@@ -31,12 +31,10 @@ class NewDetails : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val article = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        intent.getParcelableExtra("article", Article::class.java)
-                    } else {
-                        intent.getParcelableExtra("article")
-                    }
+
+                    val article = intent.getParcelable<Article>("article")
                     NewsArticleDetail(article = article as Article)
+
                 }
             }
         }
@@ -45,7 +43,7 @@ class NewDetails : ComponentActivity() {
 
 @ExperimentalCoilApi
 @Composable
-fun CoilImageDetail(article: Article) {
+fun NewsImageDetails(article: Article) {
     Box(
         modifier = Modifier
             .height(200.dp)
@@ -65,7 +63,7 @@ fun NewsArticleDetail(article: Article) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        CoilImageDetail(article = article)
+        NewsImageDetails(article = article)
 
         Spacer(modifier = Modifier.height(16.dp))
 

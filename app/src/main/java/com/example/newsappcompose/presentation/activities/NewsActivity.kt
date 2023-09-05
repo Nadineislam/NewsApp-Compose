@@ -99,7 +99,7 @@ fun NewsList(articles: List<Article>?) {
 
 @ExperimentalCoilApi
 @Composable
-fun CoilImage(article: Article) {
+fun NewsImage(article: Article) {
     Box(
         modifier = Modifier
             .height(140.dp)
@@ -128,7 +128,7 @@ fun NewsArticle(article: Article) {
             .padding(8.dp)
     ) {
 
-        CoilImage(article = article)
+        NewsImage(article = article)
 
         Column(
             modifier = Modifier
