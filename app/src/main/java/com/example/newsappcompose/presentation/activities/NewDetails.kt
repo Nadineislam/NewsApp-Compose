@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
-import com.example.newsappcompose.data.model.Article
+import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.getParcelable
 import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
 

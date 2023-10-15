@@ -1,9 +1,9 @@
-package com.example.newsappcompose.data.model
+package com.example.newsappcompose.data.remote.dto
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 @Parcelize
-data class Source(
+data class SourceDto(
     val id: String?,
     val name: String?
 ):Parcelable

@@ -1,10 +1,12 @@
 package com.example.newsappcompose.presentation.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,9 +23,9 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import com.example.newsappcompose.data.model.Article
 import com.example.newsappcompose.presentation.ui.theme.NewsAppComposeTheme
-import com.example.newsappcompose.data.utils.Resource
+import com.example.newsappcompose.core.utils.Resource
+import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.presentation.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: NewsViewModel by viewModels()
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     @ExperimentalCoilApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +51,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@coil.annotation.ExperimentalCoilApi
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+@ExperimentalCoilApi
 @Composable
 fun NewsApp(viewModel: NewsViewModel) {
     val news = viewModel.news.collectAsState()
@@ -72,7 +76,7 @@ fun NewsApp(viewModel: NewsViewModel) {
 
 }
 
-@coil.annotation.ExperimentalCoilApi
+@ExperimentalCoilApi
 @Composable
 fun NewsList(articles: List<Article>?) {
     val context = LocalContext.current
@@ -118,7 +122,7 @@ fun NewsImage(article: Article) {
     }
 }
 
-@coil.annotation.ExperimentalCoilApi
+@ExperimentalCoilApi
 @Composable
 fun NewsArticle(article: Article) {
 

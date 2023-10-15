@@ -1,6 +1,8 @@
 package com.example.newsappcompose.di
-import com.example.newsappcompose.data.api.NewsApi
-import com.example.newsappcompose.data.utils.Constants.Constants.Companion.BASE_URL
+import com.example.newsappcompose.data.remote.NewsApi
+import com.example.newsappcompose.data.NewsRepositoryImpl
+import com.example.newsappcompose.core.utils.Constants.Constants.Companion.BASE_URL
+import com.example.newsappcompose.domain.repository.NewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +16,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun providesNewsRepository(api: NewsApi): NewsRepository {
+        return NewsRepositoryImpl(api)
+    }
     @Singleton
     @Provides
     fun providesHttpLoggingInterceptor() = HttpLoggingInterceptor()

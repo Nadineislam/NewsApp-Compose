@@ -1,7 +1,7 @@
-package com.example.newsappcompose.data.api
+package com.example.newsappcompose.data.remote
 
-import com.example.newsappcompose.data.utils.Constants.Constants.Companion.API_KEY
-import com.example.newsappcompose.data.model.NewsResponse
+import com.example.newsappcompose.core.utils.Constants.Constants.Companion.API_KEY
+import com.example.newsappcompose.domain.model.NewsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

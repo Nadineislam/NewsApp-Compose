@@ -1,14 +1,14 @@
-package com.example.newsappcompose.data.model
+package com.example.newsappcompose.data.remote.dto
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 @Parcelize
-data class Article(
+data class ArticleDto(
     val author: String?,
     val content: String?,
     val description: String?,
     val publishedAt: String?,
-    val source: Source?,
+    val source: SourceDto?,
     val title: String?,
     val url: String?,
     val urlToImage: String?
