@@ -3,12 +3,13 @@ package com.example.newsappcompose.viewmodel
 import com.example.newsappcompose.FakeNewsRepository
 import com.example.newsappcompose.base.MainCoroutineExt
 import com.example.newsappcompose.core.utils.Resource
+import com.example.newsappcompose.data.remote.dto.SourceDto
+import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.domain.model.NewsResponse
 import com.example.newsappcompose.domain.repository.NewsRepository
 import com.example.newsappcompose.presentation.viewmodel.NewsViewModel
 import com.example.newsappcompose.use_case.FakeGetNews
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -31,28 +32,29 @@ class NewsViewModelTest {
         viewModel = NewsViewModel(fakeGetNews )
     }
 
-@Test
-fun `test getNews success`() = runTest {
-    viewModel.getNews()
+    @Test
+    fun `test getNews success`() = runTest {
+        val expectedArticle = Article(
+            author = "John Doe",
+            content = "Lorem ipsum dolor sit amet",
+            description = "Lorem ipsum dolor sit amet",
+            publishedAt = "2023-10-15T12:00:00Z",
+            source = SourceDto("1","CNN"),
+            title = "Sample Article",
+            url = "https://www.example.com/article/1",
+            urlToImage = "https://www.example.com/article/1/image.jpg"
+        )
 
-    val expectedSize = 1
-    val actualResource = viewModel.news.value
-    val actualNewsResponse = actualResource.data
+        val actualResource = viewModel.news.value
+        val actualNewsResponse = actualResource.data
 
-    assertNotNull(actualNewsResponse)
-    assertEquals(expectedSize, actualNewsResponse!!.articles.size)
+        viewModel.getNews()
 
-    for (article in actualNewsResponse.articles) {
-        assertNotNull(article.author)
-        assertNotNull(article.content)
-        assertNotNull(article.description)
-        assertNotNull(article.publishedAt)
-        assertNotNull(article.source)
-        assertNotNull(article.title)
-        assertNotNull(article.url)
-        assertNotNull(article.urlToImage)
+        val actualArticles = actualNewsResponse!!.articles
+        val actualArticle = actualArticles.first()
+
+        assertEquals(expectedArticle, actualArticle)
     }
-}
     @Test
     fun `test getNews error`() = runTest {
         val fakeRepository = object : NewsRepository {

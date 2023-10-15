@@ -4,14 +4,10 @@ import com.example.newsappcompose.data.remote.dto.SourceDto
 import com.example.newsappcompose.domain.model.Article
 import com.example.newsappcompose.domain.model.NewsResponse
 import com.example.newsappcompose.domain.repository.NewsRepository
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
-import java.lang.Exception
 
 class FakeNewsRepository:NewsRepository {
 override suspend fun getNews(countryCode: String): Response<NewsResponse> {
-   try {
         val articles = listOf(
             Article(
                 author = "John Doe",
@@ -27,16 +23,6 @@ override suspend fun getNews(countryCode: String): Response<NewsResponse> {
 
         val fakeNewsResponse = NewsResponse(articles, "ok", articles.size)
         return Response.success(fakeNewsResponse)
-    }
-   catch (e:Exception) {
-           return Response.error(
-               500,
-               "An error occurred".toResponseBody("application/json".toMediaTypeOrNull())
-           )
 
-   }
 }
-
-
-
 }
