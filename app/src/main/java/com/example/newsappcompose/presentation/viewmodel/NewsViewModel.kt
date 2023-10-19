@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsappcompose.core.utils.Resource
 import com.example.newsappcompose.domain.model.NewsResponse
-import com.example.newsappcompose.domain.use_case.GetNews
+import com.example.newsappcompose.domain.use_case.NewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @HiltViewModel
-class NewsViewModel @Inject constructor(private val getNews: GetNews) : ViewModel() {
+class NewsViewModel @Inject constructor(private val getNews: NewsUseCase) : ViewModel() {
     private val _news: MutableStateFlow<Resource<NewsResponse>> =
         MutableStateFlow(Resource.Loading())
     val news: StateFlow<Resource<NewsResponse>> = _news
