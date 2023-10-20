@@ -1,4 +1,4 @@
-package com.example.newsappcompose.util
+package com.example.newsappcompose.news_home_feature
 
 import com.example.newsappcompose.news_home_feature.data.remote.dto.SourceDto
 import com.example.newsappcompose.news_home_feature.domain.model.Article
